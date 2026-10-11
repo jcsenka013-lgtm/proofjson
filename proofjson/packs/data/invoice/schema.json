@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Invoice",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "invoice_number",
+    "invoice_date",
+    "due_date",
+    "vendor",
+    "bill_to",
+    "line_items",
+    "subtotal",
+    "tax",
+    "total",
+    "notes"
+  ],
+  "properties": {
+    "invoice_number": { "type": "string" },
+    "invoice_date": { "type": "string" },
+    "due_date": { "type": "string" },
+    "vendor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "city"],
+      "properties": {
+        "name": { "type": "string" },
+        "city": { "type": "string" }
+      }
+    },
+    "bill_to": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "city"],
+      "properties": {
+        "name": { "type": "string" },
+        "city": { "type": "string" }
+      }
+    },
+    "line_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["description", "qty", "amount"],
+        "properties": {
+          "description": { "type": "string" },
+          "qty": { "type": "integer" },
+          "amount": { "type": "number" }
+        }
+      }
+    },
+    "subtotal": { "type": "number" },
+    "tax": { "type": "number" },
+    "total": { "type": "number" },
+    "notes": { "type": "string" }
+  }
+}

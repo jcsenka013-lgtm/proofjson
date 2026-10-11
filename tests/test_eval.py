@@ -13,7 +13,16 @@ def test_values_equal_rejects_bool_and_int_confusion() -> None:
 
 def test_mock_eval_scores_every_fixture(examples_dir: Path) -> None:
     report = evaluate(examples_dir, ["mock"])
-    assert [score.name for score in report.scores] == ["invoice", "receipt", "vendor_form"]
+    assert [score.name for score in report.scores] == [
+        "bank_statement",
+        "invoice",
+        "packing_slip",
+        "pay_stub",
+        "purchase_order",
+        "receipt",
+        "utility_bill",
+        "vendor_form",
+    ]
     assert all(score.correct == score.field_count and score.field_count > 0 for score in report.scores)
     receipt = next(score for score in report.scores if score.name == "receipt")
     assert receipt.verified == receipt.evidence_count - 1

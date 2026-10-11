@@ -163,17 +163,32 @@ Keys are read from the environment only. There is no key flag and no `.env` load
 
 Gemini and OpenAI are asked for JSON schema output. Anthropic is forced to call an `emit_extraction` tool. Ollama receives the schema as its `format`. All of them run at temperature 0.1.
 
+## Pack store
+
+The sample schemas also ship as packs, so an extract can name a document type instead of a schema file. `proofjson packs` lists the store. `proofjson packs purchase_order` prints that schema.
+
+```bash
+uv run proofjson extract examples/purchase_order/purchase_order.pdf --pack purchase_order --model mock -o out.json
+```
+
+Pass `--pack` when the document matches a built-in schema. The chosen pack id is stored on `_meta.pack`.
+
 ## Examples
 
-Three generated documents. No real personal data. The vendor form is a sample record, not a government form. `000-00-0000` is the conventional invalid taxpayer id.
+Eight generated documents. No real personal data. The vendor form and the pay stub are sample records, not government or payroll documents. `000-00-0000` is the conventional invalid id.
 
-| Directory | What it is |
-| --- | --- |
-| `examples/invoice` | Two-page invoice. The second page is where the total lives, so carry-over context matters. |
-| `examples/receipt` | Cafe receipt with one planted unverified quote. |
-| `examples/vendor_form` | One-page vendor record. |
+| Directory | Pack | What it is |
+| --- | --- | --- |
+| `examples/invoice` | `invoice` | Two-page invoice. The second page is where the total lives, so carry-over context matters. |
+| `examples/receipt` | `receipt` | Cafe receipt with one planted unverified quote. |
+| `examples/vendor_form` | `vendor_form` | One-page vendor record. |
+| `examples/purchase_order` | `purchase_order` | One-page purchase order with two lines. |
+| `examples/utility_bill` | `utility_bill` | One-page power bill for a sample account. |
+| `examples/packing_slip` | `packing_slip` | One-page shipment with two packed items. |
+| `examples/bank_statement` | `bank_statement` | One-page statement with an opening balance, two transactions, and a closing balance. |
+| `examples/pay_stub` | `pay_stub` | One-page payroll record for a placeholder employee. |
 
-Regenerate them with `uv sync --extra dev` and `uv run python examples/generate_fixtures.py`.
+Regenerate them with `uv sync --extra dev` and `uv run python examples/generate_fixtures.py`. The generator copies each schema out of the matching pack.
 
 ## Eval
 
@@ -187,15 +202,20 @@ This is the mock run against the shipped cassettes. It is a fixture check, not a
 
 | model | fixtures | fields | correct | field accuracy | verified | verified-quote rate |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| mock | 3 | 37 | 37 | 100.0% | 36 | 97.3% |
+| mock | 8 | 83 | 83 | 100.0% | 82 | 98.8% |
 
 | fixture | model | field accuracy | verified-quote rate |
 | --- | --- | ---: | ---: |
+| bank_statement | mock | 100.0% (11/11) | 100.0% (11/11) |
 | invoice | mock | 100.0% (20/20) | 100.0% (20/20) |
+| packing_slip | mock | 100.0% (11/11) | 100.0% (11/11) |
+| pay_stub | mock | 100.0% (6/6) | 100.0% (6/6) |
+| purchase_order | mock | 100.0% (11/11) | 100.0% (11/11) |
 | receipt | mock | 100.0% (9/9) | 88.9% (8/9) |
+| utility_bill | mock | 100.0% (7/7) | 100.0% (7/7) |
 | vendor_form | mock | 100.0% (8/8) | 100.0% (8/8) |
 
-The command also prints a per-field table. `total` is correct on both the invoice and the receipt (`100.0% (2/2)`), and the receipt's quote for that field is the one that fails verification.
+The command also prints a per-field table. `total` is correct on the invoice, the receipt, and the purchase order (`100.0% (3/3)`), and the receipt's quote for that field is the one that fails verification.
 
 ## How it works
 

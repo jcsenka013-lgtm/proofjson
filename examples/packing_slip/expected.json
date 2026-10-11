@@ -1,0 +1,19 @@
+{
+  "shipment_id": "SHP-441",
+  "ship_date": "2026-03-16",
+  "carrier": "Demo Freight",
+  "ship_to_name": "Ada Example",
+  "ship_to_city": "Shelbyville",
+  "items": [
+    {
+      "sku": "SKU-TOTE",
+      "description": "Canvas tote bag",
+      "qty": 2
+    },
+    {
+      "sku": "SKU-NOTE",
+      "description": "Linen notebook",
+      "qty": 3
+    }
+  ]
+}

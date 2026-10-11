@@ -1,0 +1,6 @@
+{
+  "id": "receipt",
+  "title": "Receipt",
+  "summary": "Merchant, line items, total, and payment.",
+  "version": "1"
+}

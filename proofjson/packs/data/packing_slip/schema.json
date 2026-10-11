@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Packing slip",
+  "description": "Generated sample shipment. Not a real carrier record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["shipment_id", "ship_date", "carrier", "ship_to_name", "ship_to_city", "items"],
+  "properties": {
+    "shipment_id": { "type": "string" },
+    "ship_date": { "type": "string" },
+    "carrier": { "type": "string" },
+    "ship_to_name": { "type": "string" },
+    "ship_to_city": { "type": "string" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["sku", "description", "qty"],
+        "properties": {
+          "sku": { "type": "string" },
+          "description": { "type": "string" },
+          "qty": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "pages": {
+    "1": [
+      {
+        "path": "employee_name",
+        "value": "Sam Placeholder",
+        "quote": "Employee: Sam Placeholder",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "employee_id",
+        "value": "000-00-0000",
+        "quote": "Employee id: 000-00-0000",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "pay_date",
+        "value": "2026-03-15",
+        "quote": "Pay date: 2026-03-15",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "gross_pay",
+        "value": 2000.0,
+        "quote": "Gross pay: 2000.00",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "tax_withheld",
+        "value": 300.0,
+        "quote": "Tax withheld: 300.00",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "net_pay",
+        "value": 1700.0,
+        "quote": "Net pay: 1700.00",
+        "page": 1,
+        "confidence": 1
+      }
+    ]
+  }
+}

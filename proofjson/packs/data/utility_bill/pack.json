@@ -1,0 +1,6 @@
+{
+  "id": "utility_bill",
+  "title": "Utility bill",
+  "summary": "Account, service period, usage, and amount due.",
+  "version": "1"
+}

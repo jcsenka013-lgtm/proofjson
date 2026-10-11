@@ -1,0 +1,19 @@
+{
+  "po_number": "PO-2208",
+  "order_date": "2026-05-04",
+  "buyer": "Ada Example",
+  "supplier": "Northwind Trading Co.",
+  "line_items": [
+    {
+      "description": "Canvas tote bag",
+      "qty": 2,
+      "amount": 40.0
+    },
+    {
+      "description": "Linen notebook",
+      "qty": 4,
+      "amount": 32.0
+    }
+  ],
+  "total": 72.0
+}

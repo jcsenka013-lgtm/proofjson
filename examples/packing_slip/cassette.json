@@ -1,0 +1,83 @@
+{
+  "pages": {
+    "1": [
+      {
+        "path": "shipment_id",
+        "value": "SHP-441",
+        "quote": "Shipment: SHP-441",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "ship_date",
+        "value": "2026-03-16",
+        "quote": "Ship date: 2026-03-16",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "carrier",
+        "value": "Demo Freight",
+        "quote": "Carrier: Demo Freight",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "ship_to_name",
+        "value": "Ada Example",
+        "quote": "Ship to: Ada Example",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "ship_to_city",
+        "value": "Shelbyville",
+        "quote": "City: Shelbyville",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "items[0].sku",
+        "value": "SKU-TOTE",
+        "quote": "SKU-TOTE",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "items[0].description",
+        "value": "Canvas tote bag",
+        "quote": "Canvas tote bag",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "items[0].qty",
+        "value": 2,
+        "quote": "SKU-TOTE  Canvas tote bag  Qty 2",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "items[1].sku",
+        "value": "SKU-NOTE",
+        "quote": "SKU-NOTE",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "items[1].description",
+        "value": "Linen notebook",
+        "quote": "Linen notebook",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "items[1].qty",
+        "value": 3,
+        "quote": "SKU-NOTE  Linen notebook  Qty 3",
+        "page": 1,
+        "confidence": 1
+      }
+    ]
+  }
+}

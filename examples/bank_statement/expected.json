@@ -1,0 +1,19 @@
+{
+  "account_name": "Ada Example",
+  "account_ending": "0000",
+  "statement_date": "2026-03-31",
+  "opening_balance": 500.0,
+  "closing_balance": 1690.25,
+  "transactions": [
+    {
+      "date": "2026-03-02",
+      "description": "Deposit paycheck",
+      "amount": 1200.0
+    },
+    {
+      "date": "2026-03-18",
+      "description": "Corner Cafe",
+      "amount": -9.75
+    }
+  ]
+}

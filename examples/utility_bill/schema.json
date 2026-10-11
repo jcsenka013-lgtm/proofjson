@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Utility bill",
+  "description": "Generated sample utility bill. Not a real account.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "account_number",
+    "service_city",
+    "period_start",
+    "period_end",
+    "usage_kwh",
+    "amount_due",
+    "due_date"
+  ],
+  "properties": {
+    "account_number": { "type": "string" },
+    "service_city": { "type": "string" },
+    "period_start": { "type": "string" },
+    "period_end": { "type": "string" },
+    "usage_kwh": { "type": "integer" },
+    "amount_due": { "type": "number" },
+    "due_date": { "type": "string" }
+  }
+}

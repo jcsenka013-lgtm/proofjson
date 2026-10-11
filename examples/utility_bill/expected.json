@@ -1,0 +1,9 @@
+{
+  "account_number": "100200300",
+  "service_city": "Shelbyville",
+  "period_start": "2026-04-01",
+  "period_end": "2026-04-30",
+  "usage_kwh": 640,
+  "amount_due": 86.4,
+  "due_date": "2026-05-20"
+}

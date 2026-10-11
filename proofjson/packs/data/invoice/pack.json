@@ -1,0 +1,6 @@
+{
+  "id": "invoice",
+  "title": "Invoice",
+  "summary": "Vendor, bill-to, line items, tax, and total.",
+  "version": "1"
+}
