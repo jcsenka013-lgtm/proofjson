@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["merchant", "order_number", "date", "items", "total", "payment"],
+  "properties": {
+    "merchant": { "type": "string" },
+    "order_number": { "type": "string" },
+    "date": { "type": "string" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "amount"],
+        "properties": {
+          "name": { "type": "string" },
+          "amount": { "type": "number" }
+        }
+      }
+    },
+    "total": { "type": "number" },
+    "payment": { "type": "string" }
+  }
+}

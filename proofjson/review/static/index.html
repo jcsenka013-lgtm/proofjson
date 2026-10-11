@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>proofjson review</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%231e5c45'/%3E%3Cpath d='M4 8.2 6.4 10.6 12 5' fill='none' stroke='%23f4f0e6' stroke-width='1.6'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #efeae2;
+      --surface: #f7f4ee;
+      --ink: #1a1814;
+      --muted: #5e584e;
+      --line: #e2dbd0;
+      --green: #1e5c45;
+      --green-soft: #e5f2eb;
+      --amber: #8a5a12;
+      --amber-soft: #f8efd8;
+      --red: #8d2f2f;
+      --red-soft: #f8e6e2;
+      --mark: #ffe08a;
+      --shadow: 0 1px 2px rgba(28, 25, 21, 0.06);
+      --sans: "Avenir Next", "Segoe UI", sans-serif;
+      --serif: "Iowan Old Style", Palatino, Georgia, serif;
+      --mono: "IBM Plex Mono", "ui-monospace", "SFMono-Regular", Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+    button, input, select { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 22px;
+      background: rgba(239, 234, 226, 0.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+    }
+    .brand { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .brand strong { letter-spacing: -0.02em; font-size: 18px; }
+    .brand span, .muted { color: var(--muted); }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+    button.primary, button.ghost, button.danger, button.small {
+      border-radius: 999px;
+      border: 1px solid transparent;
+      padding: 8px 14px;
+      min-height: 36px;
+    }
+    button.primary { background: var(--green); color: #f7f4ee; }
+    button.ghost { background: transparent; border-color: var(--line); }
+    button.danger { background: var(--red-soft); color: var(--red); }
+    button.small { padding: 6px 10px; min-height: 32px; }
+    button:disabled { opacity: 0.45; cursor: not-allowed; }
+    main { padding: 18px 22px 40px; max-width: 1200px; margin: 0 auto; }
+    .status-line { min-height: 1.4em; margin: 0 0 12px; }
+    .banner {
+      background: var(--amber-soft);
+      color: var(--amber);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+    }
+    .banner.error { background: var(--red-soft); color: var(--red); }
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .filters button[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+    .layout { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr); gap: 16px; }
+    .pane {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      min-width: 0;
+    }
+    .pane h2 { font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); margin: 0; padding: 14px 16px 0; }
+    .page-pane pre {
+      margin: 0;
+      padding: 12px 16px 18px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+    mark { background: var(--mark); color: inherit; padding: 0 2px; border-radius: 3px; }
+    .fields { display: flex; flex-direction: column; gap: 10px; padding: 12px; }
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: white;
+    }
+    .card.active { border-color: var(--green); }
+    .card-top, .card-actions { display: flex; justify-content: space-between; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .path { font-family: var(--mono); font-size: 12.5px; }
+    .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .chip { border-radius: 999px; padding: 2px 8px; font-size: 12px; background: var(--bg); color: var(--muted); }
+    .chip.ok { background: var(--green-soft); color: var(--green); }
+    .chip.warn { background: var(--amber-soft); color: var(--amber); }
+    .chip.bad { background: var(--red-soft); color: var(--red); }
+    .meter { height: 4px; background: var(--line); border-radius: 99px; margin: 8px 0; overflow: hidden; }
+    .meter span { display: block; height: 100%; background: var(--green); }
+    .meter.warn span { background: var(--amber); }
+    label { display: block; font-size: 12px; color: var(--muted); margin-top: 8px; }
+    input[type="text"], select {
+      width: 100%;
+      margin-top: 4px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 10px;
+      background: var(--surface);
+    }
+    blockquote {
+      margin: 8px 0 0;
+      padding: 8px 10px;
+      border-left: 3px solid var(--mark);
+      font-family: var(--serif);
+      background: #fffaf0;
+    }
+    .empty { padding: 28px 16px; color: var(--muted); }
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    @media (min-width: 861px) {
+      .page-pane { position: sticky; top: 78px; align-self: start; max-height: calc(100vh - 96px); overflow: auto; }
+    }
+    @media (max-width: 860px) {
+      header, main { padding-left: 14px; padding-right: 14px; }
+      header { align-items: flex-start; flex-direction: column; }
+      .layout { grid-template-columns: 1fr; }
+      .fields-pane { order: 1; }
+      .page-pane { order: 2; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <strong>proofjson</strong>
+      <span id="subtitle">Loading the extraction…</span>
+    </div>
+    <div class="actions">
+      <button class="ghost" id="save" type="button">Save reviewed JSON</button>
+      <button class="primary" id="close" type="button">Save and close</button>
+    </div>
+  </header>
+  <main>
+    <p class="status-line" id="status" role="status"></p>
+    <div id="banner"></div>
+    <div class="filters" role="group" aria-label="Filter fields">
+      <button class="ghost small" type="button" data-filter="open" aria-pressed="true">Open</button>
+      <button class="ghost small" type="button" data-filter="attention" aria-pressed="false">Needs a look</button>
+      <button class="ghost small" type="button" data-filter="all" aria-pressed="false">All</button>
+    </div>
+    <div class="layout">
+      <section class="pane page-pane" aria-labelledby="page-heading">
+        <h2 id="page-heading">Page text</h2>
+        <div id="page"></div>
+      </section>
+      <section class="pane fields-pane" aria-labelledby="fields-heading">
+        <h2 id="fields-heading">Fields</h2>
+        <div class="fields" id="fields"></div>
+      </section>
+    </div>
+  </main>
+  <script>
+    const state = { doc: null, pages: [], pdfError: "", output: "", filter: "open", active: null, drafts: {} };
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function parsePath(path) {
+      const tokens = [];
+      let index = 0;
+      while (index < path.length) {
+        const char = path[index];
+        if (char === ".") { index += 1; continue; }
+        if (char === "[") {
+          const end = path.indexOf("]", index);
+          tokens.push(Number(path.slice(index + 1, end)));
+          index = end + 1;
+          continue;
+        }
+        let end = index;
+        while (end < path.length && path[end] !== "." && path[end] !== "[") end += 1;
+        tokens.push(path.slice(index, end));
+        index = end;
+      }
+      return tokens;
+    }
+
+    function valueAt(root, path) {
+      let current = root;
+      for (const token of parsePath(path)) {
+        if (current == null) return undefined;
+        current = current[token];
+      }
+      return current;
+    }
+
+    function entries() {
+      const evidence = state.doc._evidence || {};
+      const review = state.doc._review || {};
+      const min = Number(state.doc._meta && state.doc._meta.min_confidence);
+      const threshold = Number.isFinite(min) ? min : 0.8;
+      return Object.keys(evidence).map((path) => {
+        const item = evidence[path] || {};
+        const decision = review[path] || { status: "pending" };
+        const value = path in state.drafts ? state.drafts[path] : valueAt(state.doc, path);
+        return { path, item, decision, value, threshold };
+      });
+    }
+
+    function needsLook(entry) {
+      return entry.decision.status === "pending" && (entry.item.verified === false || Number(entry.item.confidence) < entry.threshold);
+    }
+
+    function visible(list) {
+      if (state.filter === "all") return list;
+      if (state.filter === "attention") return list.filter(needsLook);
+      return list.filter((entry) => entry.decision.status === "pending");
+    }
+
+    function findSpan(hay, needle) {
+      if (!hay || !needle) return null;
+      const direct = hay.indexOf(needle);
+      if (direct >= 0) return [direct, direct + needle.length];
+      const lower = hay.toLowerCase();
+      const nlower = needle.toLowerCase();
+      const folded = lower.indexOf(nlower);
+      if (folded >= 0) return [folded, folded + nlower.length];
+      const map = [];
+      let collapsed = "";
+      let pendingSpace = false;
+      for (let i = 0; i < hay.length; i += 1) {
+        const char = hay[i];
+        if (/\s/.test(char)) { pendingSpace = collapsed.length > 0; continue; }
+        if (pendingSpace) { map.push(i); collapsed += " "; pendingSpace = false; }
+        map.push(i);
+        collapsed += char.toLowerCase();
+      }
+      const wanted = nlower.replace(/\s+/g, " ").trim();
+      const at = collapsed.indexOf(wanted);
+      if (at < 0 || !map.length) return null;
+      return [map[at], map[at + wanted.length - 1] + 1];
+    }
+
+    function pageHtml(entry) {
+      if (state.pdfError) return `<p class="empty">${escapeHtml(state.pdfError)}</p>`;
+      const pageNumber = Number(entry && entry.item.page) || 1;
+      const text = state.pages[pageNumber - 1] || "";
+      if (!text) return `<p class="empty">Page ${pageNumber} has no extracted text.</p>`;
+      const quote = entry ? entry.item.quote || "" : "";
+      const span = findSpan(text, quote);
+      if (!span) {
+        return `<p class="empty">Quote not found on page ${pageNumber}.</p><pre>${escapeHtml(text)}</pre>`;
+      }
+      const [start, end] = span;
+      return `<pre>${escapeHtml(text.slice(0, start))}<mark id="hit">${escapeHtml(text.slice(start, end))}</mark>${escapeHtml(text.slice(end))}</pre>`;
+    }
+
+    function render() {
+      const list = entries();
+      const open = list.filter((entry) => entry.decision.status === "pending").length;
+      const file = state.doc._meta && state.doc._meta.source ? state.doc._meta.source.split(/[\\/]/).pop() : "extraction";
+      document.getElementById("subtitle").textContent = `${file} · ${list.length - open} of ${list.length} decided`;
+      const shown = visible(list);
+      if (!state.active || !shown.some((entry) => entry.path === state.active)) {
+        state.active = shown.length ? shown[0].path : (list[0] && list[0].path);
+      }
+      const active = list.find((entry) => entry.path === state.active) || null;
+      document.getElementById("page").innerHTML = pageHtml(active);
+      const fields = document.getElementById("fields");
+      if (!shown.length) {
+        fields.innerHTML = `<p class="empty">${state.filter === "open" ? "Nothing open. Save the reviewed file when you are done." : "No fields in this filter."}</p>`;
+      } else {
+        fields.innerHTML = shown.map(cardHtml).join("");
+      }
+      const hit = document.getElementById("hit");
+      if (hit) hit.scrollIntoView({ block: "center" });
+    }
+
+    function cardHtml(entry) {
+      const confidence = Number(entry.item.confidence);
+      const pct = Number.isFinite(confidence) ? Math.round(confidence * 100) : 0;
+      const low = Number.isFinite(confidence) && confidence < entry.threshold;
+      const verified = entry.item.verified === true;
+      const status = entry.decision.status || "pending";
+      const dirty = state.drafts[entry.path] !== undefined && String(state.drafts[entry.path]) !== String(entry.value === undefined ? "" : valueAt(state.doc, entry.path));
+      const inputValue = state.drafts[entry.path] !== undefined ? state.drafts[entry.path] : (entry.value ?? "");
+      return `
+        <article class="card${entry.path === state.active ? " active" : ""}" data-path="${escapeHtml(entry.path)}">
+          <div class="card-top">
+            <span class="path">${escapeHtml(entry.path)}</span>
+            <span class="chips">
+              <span class="chip ${status === "pending" ? "warn" : "ok"}">${escapeHtml(status)}</span>
+              <span class="chip ${verified ? "ok" : "bad"}">${verified ? "Verified quote" : "Unverified quote"}</span>
+              <span class="chip ${low ? "warn" : ""}">${pct}%</span>
+            </span>
+          </div>
+          <div class="meter ${low || !verified ? "warn" : ""}" aria-hidden="true"><span style="width:${Math.max(0, Math.min(100, pct))}%"></span></div>
+          <label>Value
+            <input type="text" data-input="${escapeHtml(entry.path)}" value="${escapeHtml(inputValue)}" aria-label="Value for ${escapeHtml(entry.path)}">
+          </label>
+          <label>Source quote</label>
+          <blockquote>${escapeHtml(entry.item.quote || "")}</blockquote>
+          <p class="muted">Page ${escapeHtml(entry.item.page)}</p>
+          <div class="card-actions">
+            <button class="small primary" type="button" data-action="approve">Approve</button>
+            <button class="small ghost" type="button" data-action="edit" ${dirty ? "" : "disabled"}>Save edit</button>
+            <button class="small danger" type="button" data-action="reject">Reject</button>
+          </div>
+          <p class="card-error muted" data-error></p>
+        </article>`;
+    }
+
+    function typedValue(path, raw) {
+      const original = valueAt(state.doc, path);
+      if (typeof original === "number") {
+        const number = Number(raw);
+        if (Number.isNaN(number)) return { error: "Enter a number." };
+        return { value: Number.isInteger(original) && Number.isInteger(number) ? number : number };
+      }
+      if (typeof original === "boolean") {
+        return { value: raw === "true" || raw === "yes" };
+      }
+      return { value: raw };
+    }
+
+    async function post(url, body) {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        const detail = payload.detail || "The review server rejected that change.";
+        throw new Error(typeof detail === "string" ? detail : "The review server rejected that change.");
+      }
+      return payload;
+    }
+
+    async function decide(path, action) {
+      const original = valueAt(state.doc, path);
+      const raw = state.drafts[path] !== undefined ? state.drafts[path] : String(original ?? "");
+      let chosen = action;
+      if (action === "approve" && String(raw) !== String(original ?? "")) chosen = "edit";
+      const body = { path, action: chosen };
+      if (chosen === "edit") {
+        const parsed = typedValue(path, raw);
+        if (parsed.error) throw new Error(parsed.error);
+        body.value = parsed.value;
+      }
+      await post("/api/decision", body);
+      delete state.drafts[path];
+      const fresh = await fetch("/api/document");
+      if (!fresh.ok) throw new Error("Could not reload the extraction.");
+      const payload = await fresh.json();
+      state.doc = payload.document;
+      render();
+    }
+
+    async function save(shutdown) {
+      const pending = entries().filter((entry) => entry.decision.status === "pending").length;
+      if (shutdown && pending > 0 && !window.confirm(`${pending} field${pending === 1 ? " is" : "s are"} still open. Save anyway? The command will exit with an error until every field is decided.`)) {
+        return;
+      }
+      const result = await post("/api/export", { shutdown });
+      const status = document.getElementById("status");
+      status.textContent = result.complete
+        ? `Saved ${result.path}. Every field has a decision.`
+        : `Saved ${result.path}. ${result.pending.length} field${result.pending.length === 1 ? "" : "s"} still open.`;
+      if (shutdown) status.textContent += " You can close this tab.";
+    }
+
+    function paintPage() {
+      const active = entries().find((entry) => entry.path === state.active) || null;
+      document.getElementById("page").innerHTML = pageHtml(active);
+      document.querySelectorAll(".card").forEach((card) => {
+        card.classList.toggle("active", card.getAttribute("data-path") === state.active);
+      });
+      const hit = document.getElementById("hit");
+      if (hit) hit.scrollIntoView({ block: "center" });
+    }
+
+    document.getElementById("fields").addEventListener("click", async (event) => {
+      const card = event.target.closest(".card");
+      if (!card) return;
+      const path = card.getAttribute("data-path");
+      if (event.target.closest("button")) {
+        const action = event.target.closest("button").dataset.action;
+        const error = card.querySelector("[data-error]");
+        error.textContent = "";
+        try {
+          await decide(path, action);
+        } catch (err) {
+          error.textContent = err.message;
+        }
+        return;
+      }
+      state.active = path;
+      if (event.target.closest("input, label, blockquote")) {
+        paintPage();
+        return;
+      }
+      render();
+    });
+
+    document.getElementById("fields").addEventListener("input", (event) => {
+      const input = event.target.closest("input");
+      if (!input) return;
+      const path = input.getAttribute("data-input");
+      state.drafts[path] = input.value;
+      const card = input.closest(".card");
+      const edit = card.querySelector('[data-action="edit"]');
+      const original = valueAt(state.doc, path);
+      edit.disabled = String(input.value) === String(original ?? "");
+    });
+
+    document.querySelectorAll("[data-filter]").forEach((button) => {
+      button.addEventListener("click", () => {
+        state.filter = button.dataset.filter;
+        document.querySelectorAll("[data-filter]").forEach((item) => {
+          item.setAttribute("aria-pressed", item === button ? "true" : "false");
+        });
+        render();
+      });
+    });
+
+    document.getElementById("save").addEventListener("click", () => save(false).catch((err) => {
+      document.getElementById("status").textContent = err.message;
+    }));
+    document.getElementById("close").addEventListener("click", () => save(true).catch((err) => {
+      document.getElementById("status").textContent = err.message;
+    }));
+
+    fetch("/api/document")
+      .then((response) => {
+        if (!response.ok) throw new Error("Could not load this extraction.");
+        return response.json();
+      })
+      .then((payload) => {
+        state.doc = payload.document;
+        state.pages = payload.pages || [];
+        state.pdfError = payload.pdf_error || "";
+        state.output = payload.output || "";
+        const errors = (state.doc._meta && state.doc._meta.validation_errors) || [];
+        if (state.pdfError) {
+          document.getElementById("banner").innerHTML = `<div class="banner">${escapeHtml(state.pdfError)} Quotes are still listed on each field.</div>`;
+        } else if (errors.length) {
+          document.getElementById("banner").innerHTML = `<div class="banner error">${escapeHtml(errors.join(" "))}</div>`;
+        }
+        render();
+      })
+      .catch((err) => {
+        document.getElementById("subtitle").textContent = "Could not load the extraction.";
+        document.getElementById("banner").innerHTML = `<div class="banner error">${escapeHtml(err.message)}</div>`;
+      });
+  </script>
+</body>
+</html>

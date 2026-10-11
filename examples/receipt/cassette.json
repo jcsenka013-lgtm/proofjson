@@ -1,0 +1,69 @@
+{
+  "pages": {
+    "1": [
+      {
+        "path": "merchant",
+        "value": "Corner Cafe",
+        "quote": "CORNER CAFE",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "order_number",
+        "value": "R-8831",
+        "quote": "Order: R-8831",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "date",
+        "value": "2026-06-02",
+        "quote": "Date: 2026-06-02",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "items[0].name",
+        "value": "Drip coffee",
+        "quote": "Drip coffee",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "items[0].amount",
+        "value": 4.5,
+        "quote": "Drip coffee  4.50",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "items[1].name",
+        "value": "Blueberry muffin",
+        "quote": "Blueberry muffin",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "items[1].amount",
+        "value": 5.25,
+        "quote": "Blueberry muffin  5.25",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "total",
+        "value": 9.75,
+        "quote": "Complimentary dessert included",
+        "page": 1,
+        "confidence": 0.9
+      },
+      {
+        "path": "payment",
+        "value": "Visa ending 4242",
+        "quote": "Paid with Visa ending 4242",
+        "page": 1,
+        "confidence": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "merchant": "Corner Cafe",
+  "order_number": "R-8831",
+  "date": "2026-06-02",
+  "items": [
+    {
+      "name": "Drip coffee",
+      "amount": 4.5
+    },
+    {
+      "name": "Blueberry muffin",
+      "amount": 5.25
+    }
+  ],
+  "total": 9.75,
+  "payment": "Visa ending 4242"
+}

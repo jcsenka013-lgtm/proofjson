@@ -1,0 +1,34 @@
+{
+  "invoice_number": "INV-1042",
+  "invoice_date": "2026-03-14",
+  "due_date": "2026-04-13",
+  "vendor": {
+    "name": "Northwind Trading Co.",
+    "city": "Springfield"
+  },
+  "bill_to": {
+    "name": "Ada Example",
+    "city": "Shelbyville"
+  },
+  "line_items": [
+    {
+      "description": "Canvas tote bag",
+      "qty": 2,
+      "amount": 48.0
+    },
+    {
+      "description": "Steel water bottle",
+      "qty": 1,
+      "amount": 24.0
+    },
+    {
+      "description": "Linen notebook",
+      "qty": 3,
+      "amount": 36.0
+    }
+  ],
+  "subtotal": 108.0,
+  "tax": 20.4,
+  "total": 128.4,
+  "notes": "Thank you for your demo order."
+}

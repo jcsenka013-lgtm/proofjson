@@ -1,0 +1,148 @@
+{
+  "pages": {
+    "1": [
+      {
+        "path": "vendor.name",
+        "value": "Northwind Trading Co.",
+        "quote": "NORTHWIND TRADING CO.",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "vendor.city",
+        "value": "Springfield",
+        "quote": "Springfield, IL 62701",
+        "page": 1,
+        "confidence": 0.9
+      },
+      {
+        "path": "invoice_number",
+        "value": "INV-1042",
+        "quote": "Invoice number: INV-1042",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "invoice_date",
+        "value": "2026-03-14",
+        "quote": "Invoice date: 2026-03-14",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "due_date",
+        "value": "2026-04-13",
+        "quote": "Due date: 2026-04-13",
+        "page": 1,
+        "confidence": 0.9
+      },
+      {
+        "path": "bill_to.name",
+        "value": "Ada Example",
+        "quote": "Ada Example",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "bill_to.city",
+        "value": "Shelbyville",
+        "quote": "Shelbyville, IL 62565",
+        "page": 1,
+        "confidence": 0.9
+      },
+      {
+        "path": "line_items[0].description",
+        "value": "Canvas tote bag",
+        "quote": "Canvas tote bag",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "line_items[0].qty",
+        "value": 2,
+        "quote": "2  Canvas tote bag  48.00",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "line_items[0].amount",
+        "value": 48.0,
+        "quote": "2  Canvas tote bag  48.00",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "line_items[1].description",
+        "value": "Steel water bottle",
+        "quote": "Steel water bottle",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "line_items[1].qty",
+        "value": 1,
+        "quote": "1  Steel water bottle  24.00",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "line_items[1].amount",
+        "value": 24.0,
+        "quote": "1  Steel water bottle  24.00",
+        "page": 1,
+        "confidence": 1
+      }
+    ],
+    "2": [
+      {
+        "path": "line_items[2].description",
+        "value": "Linen notebook",
+        "quote": "Linen notebook",
+        "page": 2,
+        "confidence": 1
+      },
+      {
+        "path": "line_items[2].qty",
+        "value": 3,
+        "quote": "3  Linen notebook  36.00",
+        "page": 2,
+        "confidence": 1
+      },
+      {
+        "path": "line_items[2].amount",
+        "value": 36.0,
+        "quote": "3  Linen notebook  36.00",
+        "page": 2,
+        "confidence": 1
+      },
+      {
+        "path": "subtotal",
+        "value": 108.0,
+        "quote": "Subtotal: 108.00",
+        "page": 2,
+        "confidence": 1
+      },
+      {
+        "path": "tax",
+        "value": 20.4,
+        "quote": "Tax: 20.40",
+        "page": 2,
+        "confidence": 1
+      },
+      {
+        "path": "total",
+        "value": 128.4,
+        "quote": "Total due: 128.40",
+        "page": 2,
+        "confidence": 1
+      },
+      {
+        "path": "notes",
+        "value": "Thank you for your demo order.",
+        "quote": "Notes: Thank you for your demo order.",
+        "page": 2,
+        "confidence": 0.75
+      }
+    ]
+  }
+}

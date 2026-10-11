@@ -1,0 +1,62 @@
+{
+  "pages": {
+    "1": [
+      {
+        "path": "legal_name",
+        "value": "Sam Placeholder",
+        "quote": "Legal name: Sam Placeholder",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "business_name",
+        "value": "Placeholder Goods LLC",
+        "quote": "Business name: Placeholder Goods LLC",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "street",
+        "value": "1 Example Avenue",
+        "quote": "Street: 1 Example Avenue",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "city",
+        "value": "Springfield",
+        "quote": "City: Springfield",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "state",
+        "value": "IL",
+        "quote": "State: IL",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "postal_code",
+        "value": "62701",
+        "quote": "ZIP: 62701",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "taxpayer_id",
+        "value": "000-00-0000",
+        "quote": "Taxpayer ID: 000-00-0000",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "signed_date",
+        "value": "2026-01-15",
+        "quote": "Signed date: 2026-01-15",
+        "page": 1,
+        "confidence": 1
+      }
+    ]
+  }
+}
