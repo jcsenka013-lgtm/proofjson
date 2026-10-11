@@ -1,0 +1,83 @@
+{
+  "pages": {
+    "1": [
+      {
+        "path": "account_name",
+        "value": "Ada Example",
+        "quote": "Account name: Ada Example",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "account_ending",
+        "value": "0000",
+        "quote": "Account ending: 0000",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "statement_date",
+        "value": "2026-03-31",
+        "quote": "Statement date: 2026-03-31",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "opening_balance",
+        "value": 500.0,
+        "quote": "Opening balance: 500.00",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "closing_balance",
+        "value": 1690.25,
+        "quote": "Closing balance: 1690.25",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "transactions[0].date",
+        "value": "2026-03-02",
+        "quote": "2026-03-02  Deposit paycheck  1200.00",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "transactions[0].description",
+        "value": "Deposit paycheck",
+        "quote": "Deposit paycheck",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "transactions[0].amount",
+        "value": 1200.0,
+        "quote": "2026-03-02  Deposit paycheck  1200.00",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "transactions[1].date",
+        "value": "2026-03-18",
+        "quote": "2026-03-18  Corner Cafe  -9.75",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "transactions[1].description",
+        "value": "Corner Cafe",
+        "quote": "Corner Cafe",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "transactions[1].amount",
+        "value": -9.75,
+        "quote": "2026-03-18  Corner Cafe  -9.75",
+        "page": 1,
+        "confidence": 1
+      }
+    ]
+  }
+}

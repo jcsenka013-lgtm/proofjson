@@ -10,6 +10,7 @@ are placeholders. Nothing here is a real person, invoice, or government form.
 from __future__ import annotations
 
 import json
+from importlib.resources import files
 from pathlib import Path
 
 from reportlab.lib.pagesizes import letter
@@ -84,6 +85,76 @@ VENDOR_PAGE = [
     "Signed date: 2026-01-15",
 ]
 
+PURCHASE_ORDER_PAGE = [
+    "NORTHWIND TRADING CO.",
+    "500 Warehouse Road",
+    "Springfield, IL 62704",
+    "",
+    "PURCHASE ORDER",
+    "PO number: PO-2208",
+    "Order date: 2026-05-04",
+    "Buyer: Ada Example",
+    "Supplier: Northwind Trading Co.",
+    "",
+    "2  Canvas tote bag  40.00",
+    "4  Linen notebook  32.00",
+    "Total: 72.00",
+]
+
+UTILITY_BILL_PAGE = [
+    "RIVER POWER",
+    "Sample utility bill. Not a real account.",
+    "",
+    "Account: 100200300",
+    "Service city: Shelbyville",
+    "Period start: 2026-04-01",
+    "Period end: 2026-04-30",
+    "Usage kWh: 640",
+    "Amount due: 86.40",
+    "Due date: 2026-05-20",
+]
+
+PACKING_SLIP_PAGE = [
+    "PACKING SLIP",
+    "Sample shipment. Not a real carrier record.",
+    "",
+    "Shipment: SHP-441",
+    "Ship date: 2026-03-16",
+    "Carrier: Demo Freight",
+    "Ship to: Ada Example",
+    "City: Shelbyville",
+    "",
+    "SKU-TOTE  Canvas tote bag  Qty 2",
+    "SKU-NOTE  Linen notebook  Qty 3",
+]
+
+BANK_STATEMENT_PAGE = [
+    "SAMPLE CREDIT UNION",
+    "Sample statement. Not a real account.",
+    "",
+    "Account name: Ada Example",
+    "Account ending: 0000",
+    "Statement date: 2026-03-31",
+    "Opening balance: 500.00",
+    "",
+    "2026-03-02  Deposit paycheck  1200.00",
+    "2026-03-18  Corner Cafe  -9.75",
+    "",
+    "Closing balance: 1690.25",
+]
+
+PAY_STUB_PAGE = [
+    "PAY STUB",
+    "Sample payroll record. Not a real employer or person.",
+    "",
+    "Employee: Sam Placeholder",
+    "Employee id: 000-00-0000",
+    "Pay date: 2026-03-15",
+    "Gross pay: 2000.00",
+    "Tax withheld: 300.00",
+    "Net pay: 1700.00",
+]
+
 FIXTURES = [
     {
         "directory": "invoice",
@@ -153,6 +224,98 @@ FIXTURES = [
             {"path": "signed_date", "value": "2026-01-15", "quote": "Signed date: 2026-01-15", "page": 1, "confidence": 1},
         ],
     },
+    {
+        "directory": "purchase_order",
+        "pdf": "purchase_order.pdf",
+        "title": "Northwind purchase order PO-2208 (sample)",
+        "pages": [PURCHASE_ORDER_PAGE],
+        "fields": [
+            {"path": "po_number", "value": "PO-2208", "quote": "PO number: PO-2208", "page": 1, "confidence": 1},
+            {"path": "order_date", "value": "2026-05-04", "quote": "Order date: 2026-05-04", "page": 1, "confidence": 1},
+            {"path": "buyer", "value": "Ada Example", "quote": "Buyer: Ada Example", "page": 1, "confidence": 1},
+            {
+                "path": "supplier",
+                "value": "Northwind Trading Co.",
+                "quote": "Supplier: Northwind Trading Co.",
+                "page": 1,
+                "confidence": 1,
+            },
+            {"path": "line_items[0].description", "value": "Canvas tote bag", "quote": "Canvas tote bag", "page": 1, "confidence": 1},
+            {"path": "line_items[0].qty", "value": 2, "quote": "2  Canvas tote bag  40.00", "page": 1, "confidence": 1},
+            {"path": "line_items[0].amount", "value": 40.0, "quote": "2  Canvas tote bag  40.00", "page": 1, "confidence": 1},
+            {"path": "line_items[1].description", "value": "Linen notebook", "quote": "Linen notebook", "page": 1, "confidence": 1},
+            {"path": "line_items[1].qty", "value": 4, "quote": "4  Linen notebook  32.00", "page": 1, "confidence": 1},
+            {"path": "line_items[1].amount", "value": 32.0, "quote": "4  Linen notebook  32.00", "page": 1, "confidence": 1},
+            {"path": "total", "value": 72.0, "quote": "Total: 72.00", "page": 1, "confidence": 1},
+        ],
+    },
+    {
+        "directory": "utility_bill",
+        "pdf": "utility_bill.pdf",
+        "title": "River Power utility bill (sample, not a real account)",
+        "pages": [UTILITY_BILL_PAGE],
+        "fields": [
+            {"path": "account_number", "value": "100200300", "quote": "Account: 100200300", "page": 1, "confidence": 1},
+            {"path": "service_city", "value": "Shelbyville", "quote": "Service city: Shelbyville", "page": 1, "confidence": 1},
+            {"path": "period_start", "value": "2026-04-01", "quote": "Period start: 2026-04-01", "page": 1, "confidence": 1},
+            {"path": "period_end", "value": "2026-04-30", "quote": "Period end: 2026-04-30", "page": 1, "confidence": 1},
+            {"path": "usage_kwh", "value": 640, "quote": "Usage kWh: 640", "page": 1, "confidence": 1},
+            {"path": "amount_due", "value": 86.4, "quote": "Amount due: 86.40", "page": 1, "confidence": 1},
+            {"path": "due_date", "value": "2026-05-20", "quote": "Due date: 2026-05-20", "page": 1, "confidence": 1},
+        ],
+    },
+    {
+        "directory": "packing_slip",
+        "pdf": "packing_slip.pdf",
+        "title": "Demo Freight packing slip SHP-441 (sample)",
+        "pages": [PACKING_SLIP_PAGE],
+        "fields": [
+            {"path": "shipment_id", "value": "SHP-441", "quote": "Shipment: SHP-441", "page": 1, "confidence": 1},
+            {"path": "ship_date", "value": "2026-03-16", "quote": "Ship date: 2026-03-16", "page": 1, "confidence": 1},
+            {"path": "carrier", "value": "Demo Freight", "quote": "Carrier: Demo Freight", "page": 1, "confidence": 1},
+            {"path": "ship_to_name", "value": "Ada Example", "quote": "Ship to: Ada Example", "page": 1, "confidence": 1},
+            {"path": "ship_to_city", "value": "Shelbyville", "quote": "City: Shelbyville", "page": 1, "confidence": 1},
+            {"path": "items[0].sku", "value": "SKU-TOTE", "quote": "SKU-TOTE", "page": 1, "confidence": 1},
+            {"path": "items[0].description", "value": "Canvas tote bag", "quote": "Canvas tote bag", "page": 1, "confidence": 1},
+            {"path": "items[0].qty", "value": 2, "quote": "SKU-TOTE  Canvas tote bag  Qty 2", "page": 1, "confidence": 1},
+            {"path": "items[1].sku", "value": "SKU-NOTE", "quote": "SKU-NOTE", "page": 1, "confidence": 1},
+            {"path": "items[1].description", "value": "Linen notebook", "quote": "Linen notebook", "page": 1, "confidence": 1},
+            {"path": "items[1].qty", "value": 3, "quote": "SKU-NOTE  Linen notebook  Qty 3", "page": 1, "confidence": 1},
+        ],
+    },
+    {
+        "directory": "bank_statement",
+        "pdf": "bank_statement.pdf",
+        "title": "Sample Credit Union statement (not a real account)",
+        "pages": [BANK_STATEMENT_PAGE],
+        "fields": [
+            {"path": "account_name", "value": "Ada Example", "quote": "Account name: Ada Example", "page": 1, "confidence": 1},
+            {"path": "account_ending", "value": "0000", "quote": "Account ending: 0000", "page": 1, "confidence": 1},
+            {"path": "statement_date", "value": "2026-03-31", "quote": "Statement date: 2026-03-31", "page": 1, "confidence": 1},
+            {"path": "opening_balance", "value": 500.0, "quote": "Opening balance: 500.00", "page": 1, "confidence": 1},
+            {"path": "closing_balance", "value": 1690.25, "quote": "Closing balance: 1690.25", "page": 1, "confidence": 1},
+            {"path": "transactions[0].date", "value": "2026-03-02", "quote": "2026-03-02  Deposit paycheck  1200.00", "page": 1, "confidence": 1},
+            {"path": "transactions[0].description", "value": "Deposit paycheck", "quote": "Deposit paycheck", "page": 1, "confidence": 1},
+            {"path": "transactions[0].amount", "value": 1200.0, "quote": "2026-03-02  Deposit paycheck  1200.00", "page": 1, "confidence": 1},
+            {"path": "transactions[1].date", "value": "2026-03-18", "quote": "2026-03-18  Corner Cafe  -9.75", "page": 1, "confidence": 1},
+            {"path": "transactions[1].description", "value": "Corner Cafe", "quote": "Corner Cafe", "page": 1, "confidence": 1},
+            {"path": "transactions[1].amount", "value": -9.75, "quote": "2026-03-18  Corner Cafe  -9.75", "page": 1, "confidence": 1},
+        ],
+    },
+    {
+        "directory": "pay_stub",
+        "pdf": "pay_stub.pdf",
+        "title": "Sample pay stub (not a real employer or person)",
+        "pages": [PAY_STUB_PAGE],
+        "fields": [
+            {"path": "employee_name", "value": "Sam Placeholder", "quote": "Employee: Sam Placeholder", "page": 1, "confidence": 1},
+            {"path": "employee_id", "value": "000-00-0000", "quote": "Employee id: 000-00-0000", "page": 1, "confidence": 1},
+            {"path": "pay_date", "value": "2026-03-15", "quote": "Pay date: 2026-03-15", "page": 1, "confidence": 1},
+            {"path": "gross_pay", "value": 2000.0, "quote": "Gross pay: 2000.00", "page": 1, "confidence": 1},
+            {"path": "tax_withheld", "value": 300.0, "quote": "Tax withheld: 300.00", "page": 1, "confidence": 1},
+            {"path": "net_pay", "value": 1700.0, "quote": "Net pay: 1700.00", "page": 1, "confidence": 1},
+        ],
+    },
 ]
 
 
@@ -171,6 +334,13 @@ def draw_pdf(path: Path, title: str, pages: list[list[str]]) -> None:
     document.save()
 
 
+def _write_pack_schema(directory: Path, pack_id: str) -> None:
+    source = files("proofjson.packs").joinpath("data", pack_id, "schema.json")
+    if not source.is_file():
+        raise SystemExit(f"No schema pack named {pack_id}.")
+    (directory / "schema.json").write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
+
+
 def write_json(path: Path, payload: object) -> None:
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
@@ -179,6 +349,7 @@ def main() -> None:
     for spec in FIXTURES:
         directory = ROOT / spec["directory"]
         directory.mkdir(parents=True, exist_ok=True)
+        _write_pack_schema(directory, spec["directory"])
         pdf_path = directory / spec["pdf"]
         draw_pdf(pdf_path, spec["title"], spec["pages"])
         pages = read_pdf(pdf_path)

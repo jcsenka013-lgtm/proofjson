@@ -4,13 +4,14 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Annotated, Optional
+from typing import Annotated, Any, Optional
 
 import typer
 
 from proofjson.errors import ProofJsonError
 from proofjson.eval import evaluate, render_markdown
 from proofjson.extract import DEFAULT_MODEL, extract, format_summary
+from proofjson.packs import get_pack, list_packs
 from proofjson.review.app import serve
 from proofjson.version import __version__
 
@@ -46,9 +47,20 @@ def callback(
 def extract_cmd(
     pdf: Annotated[Path, typer.Argument(help="PDF to read.", exists=True, dir_okay=False, readable=True)],
     schema: Annotated[
-        Path,
-        typer.Option("--schema", "-s", help="JSON Schema file.", exists=True, dir_okay=False, readable=True),
-    ],
+        Optional[Path],
+        typer.Option(
+            "--schema",
+            "-s",
+            help="JSON Schema file. Omit this when you pass --pack.",
+            exists=True,
+            dir_okay=False,
+            readable=True,
+        ),
+    ] = None,
+    pack: Annotated[
+        Optional[str],
+        typer.Option("--pack", help="Built-in schema pack. See `proofjson packs`."),
+    ] = None,
     model: Annotated[
         str,
         typer.Option(
@@ -72,13 +84,18 @@ def extract_cmd(
 ) -> None:
     """Extract schema-valid JSON with a quote, page, and confidence on every field."""
     try:
+        chosen = _schema_for_extract(schema, pack)
         result = extract(
             pdf,
-            schema,
+            chosen,
             model=model,
             min_confidence=min_confidence,
             cassette=cassette,
         )
+        if pack is not None:
+            meta = result.document.get("_meta")
+            if isinstance(meta, dict):
+                meta["pack"] = pack.strip()
         payload = json.dumps(result.document, indent=2, ensure_ascii=False) + "\n"
         summary = format_summary(result)
         if output is not None and output.name == "-":
@@ -144,6 +161,37 @@ def eval_cmd(
     except ProofJsonError as exc:
         _fail(exc)
     typer.echo(markdown, nl=False)
+
+
+@app.command("packs")
+def packs_cmd(
+    name: Annotated[
+        Optional[str],
+        typer.Argument(help="Pack id to print. Omit it to list the store."),
+    ] = None,
+) -> None:
+    """List built-in schema packs, or print one schema."""
+    try:
+        if name is None:
+            for pack in list_packs():
+                typer.echo(f"{pack.id}\t{pack.title}\t{pack.summary}")
+            return
+        pack = get_pack(name)
+    except ProofJsonError as exc:
+        _fail(exc)
+    typer.echo(f"{pack.id}\t{pack.title}\tv{pack.version}")
+    typer.echo(pack.summary)
+    typer.echo(json.dumps(pack.schema(), indent=2, ensure_ascii=False))
+
+
+def _schema_for_extract(schema: Path | None, pack: str | None) -> Path | dict[str, Any]:
+    if schema is not None and pack is not None:
+        raise ProofJsonError("Pass either --schema or --pack.")
+    if pack is not None:
+        return get_pack(pack).schema()
+    if schema is not None:
+        return schema
+    raise ProofJsonError("Pass --schema or --pack. `proofjson packs` lists the store.")
 
 
 def main() -> None:

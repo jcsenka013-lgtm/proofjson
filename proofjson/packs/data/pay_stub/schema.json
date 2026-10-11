@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pay stub",
+  "description": "Generated sample payroll record. Not a real employer or person. 000-00-0000 is the conventional invalid id.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "employee_name",
+    "employee_id",
+    "pay_date",
+    "gross_pay",
+    "tax_withheld",
+    "net_pay"
+  ],
+  "properties": {
+    "employee_name": { "type": "string" },
+    "employee_id": { "type": "string" },
+    "pay_date": { "type": "string" },
+    "gross_pay": { "type": "number" },
+    "tax_withheld": { "type": "number" },
+    "net_pay": { "type": "number" }
+  }
+}

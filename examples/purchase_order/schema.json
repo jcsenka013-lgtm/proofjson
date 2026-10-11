@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Purchase order",
+  "description": "Generated sample purchase order. Not a real order.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["po_number", "order_date", "buyer", "supplier", "line_items", "total"],
+  "properties": {
+    "po_number": { "type": "string" },
+    "order_date": { "type": "string" },
+    "buyer": { "type": "string" },
+    "supplier": { "type": "string" },
+    "line_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["description", "qty", "amount"],
+        "properties": {
+          "description": { "type": "string" },
+          "qty": { "type": "integer" },
+          "amount": { "type": "number" }
+        }
+      }
+    },
+    "total": { "type": "number" }
+  }
+}

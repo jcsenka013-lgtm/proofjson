@@ -1,0 +1,83 @@
+{
+  "pages": {
+    "1": [
+      {
+        "path": "po_number",
+        "value": "PO-2208",
+        "quote": "PO number: PO-2208",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "order_date",
+        "value": "2026-05-04",
+        "quote": "Order date: 2026-05-04",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "buyer",
+        "value": "Ada Example",
+        "quote": "Buyer: Ada Example",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "supplier",
+        "value": "Northwind Trading Co.",
+        "quote": "Supplier: Northwind Trading Co.",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "line_items[0].description",
+        "value": "Canvas tote bag",
+        "quote": "Canvas tote bag",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "line_items[0].qty",
+        "value": 2,
+        "quote": "2  Canvas tote bag  40.00",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "line_items[0].amount",
+        "value": 40.0,
+        "quote": "2  Canvas tote bag  40.00",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "line_items[1].description",
+        "value": "Linen notebook",
+        "quote": "Linen notebook",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "line_items[1].qty",
+        "value": 4,
+        "quote": "4  Linen notebook  32.00",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "line_items[1].amount",
+        "value": 32.0,
+        "quote": "4  Linen notebook  32.00",
+        "page": 1,
+        "confidence": 1
+      },
+      {
+        "path": "total",
+        "value": 72.0,
+        "quote": "Total: 72.00",
+        "page": 1,
+        "confidence": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bank statement",
+  "description": "Generated sample statement. Not a real account.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "account_name",
+    "account_ending",
+    "statement_date",
+    "opening_balance",
+    "closing_balance",
+    "transactions"
+  ],
+  "properties": {
+    "account_name": { "type": "string" },
+    "account_ending": { "type": "string" },
+    "statement_date": { "type": "string" },
+    "opening_balance": { "type": "number" },
+    "closing_balance": { "type": "number" },
+    "transactions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["date", "description", "amount"],
+        "properties": {
+          "date": { "type": "string" },
+          "description": { "type": "string" },
+          "amount": { "type": "number" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "id": "purchase_order",
+  "title": "Purchase order",
+  "summary": "Buyer, supplier, line items, and total.",
+  "version": "1"
+}
