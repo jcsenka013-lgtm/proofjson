@@ -4,9 +4,7 @@ A trust layer for LLM extraction.
 
 Give proofjson a PDF and a JSON Schema (or a Pydantic model). It returns schema-valid JSON where every field carries a source quote, a page number, and a confidence score. Quotes that are not in the page text, after normalization and a digit-safe fuzzy match, are flagged `unverified`. A local review page lets a person approve, fix, or reject each field before anything is exported.
 
-![Demo placeholder](docs/demo.gif)
-
-The image above is a placeholder frame. Replace `docs/demo.gif` after recording the script in [docs/demo.md](docs/demo.md).
+![Demo of extracting the sample invoice and approving the notes field](docs/demo.gif)
 
 ## 30-second quickstart
 
