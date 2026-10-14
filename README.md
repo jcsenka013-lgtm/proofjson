@@ -171,6 +171,24 @@ uv run proofjson extract examples/purchase_order/purchase_order.pdf --pack purch
 
 Pass `--pack` when the document matches a built-in schema. The chosen pack id is stored on `_meta.pack`.
 
+## Batch
+
+`proofjson batch` runs the same schema across every PDF in one folder. Mock mode reads `cassette.json` beside each PDF. `--min-confidence` is a gate: the command exits 0 only when every file is schema-valid, every quote is verified, and every confidence is at least the threshold. Files that miss the gate are still written, and the command exits 1. A PDF that cannot be read (for example a scan with no text layer) exits 2 for the batch; the other files are still written.
+
+```bash
+uv run proofjson batch examples/invoice --pack invoice --model mock --min-confidence 0.7 -o out/
+```
+
+That invoice clears 0.7. The shipped default of 0.8 holds it, because `notes` is 0.75:
+
+```text
+status  fields  file
+review      20  invoice.pdf  below confidence: notes
+1 file, 0 passed, 1 needs review, 0 failed
+```
+
+Each result is `<stem>.proof.json`. `--report batch.json` writes the same summary as JSON.
+
 ## Examples
 
 Eight generated documents. No real personal data. The vendor form and the pay stub are sample records, not government or payroll documents. `000-00-0000` is the conventional invalid id.
@@ -242,7 +260,6 @@ v0.2 is the rest of the trust layer that this release deliberately leaves out:
 
 - OCR for scanned pages that have no text layer
 - A pdf.js view that highlights the quote on the rendered page, not only in the extracted text
-- `proofjson batch` for a folder, with `--min-confidence` as a gate
 - Live eval numbers for Gemini, OpenAI, Anthropic, and Ollama, checked into this README
 - Layout-aware text (columns and tables) via pdfplumber
 - A PyPI release so `uvx proofjson` works

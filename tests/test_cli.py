@@ -14,6 +14,7 @@ def test_help_and_version() -> None:
     help_result = runner.invoke(app, ["--help"])
     assert help_result.exit_code == 0
     assert "extract" in help_result.stdout
+    assert "batch" in help_result.stdout
     assert "review" in help_result.stdout
     assert "eval" in help_result.stdout
     assert "packs" in help_result.stdout

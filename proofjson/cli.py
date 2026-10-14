@@ -1,4 +1,4 @@
-"""Command line: extract, review, and eval."""
+"""Command line: extract, batch, review, and eval."""
 
 from __future__ import annotations
 
@@ -8,6 +8,7 @@ from typing import Annotated, Any, Optional
 
 import typer
 
+from proofjson.batch import render_batch, run_batch
 from proofjson.errors import ProofJsonError
 from proofjson.eval import evaluate, render_markdown
 from proofjson.extract import DEFAULT_MODEL, extract, format_summary
@@ -112,6 +113,86 @@ def extract_cmd(
         _fail(exc)
     if result.validation_errors:
         raise typer.Exit(code=1)
+
+
+@app.command("batch")
+def batch_cmd(
+    directory: Annotated[
+        Path,
+        typer.Argument(help="Folder of PDFs that share one schema.", exists=True, file_okay=False, readable=True),
+    ],
+    schema: Annotated[
+        Optional[Path],
+        typer.Option(
+            "--schema",
+            "-s",
+            help="JSON Schema file. Omit this when you pass --pack.",
+            exists=True,
+            dir_okay=False,
+            readable=True,
+        ),
+    ] = None,
+    pack: Annotated[
+        Optional[str],
+        typer.Option("--pack", help="Built-in schema pack. See `proofjson packs`."),
+    ] = None,
+    model: Annotated[
+        str,
+        typer.Option(
+            "--model",
+            "-m",
+            help="provider/name, or mock. Example: gemini/gemini-2.5-flash.",
+        ),
+    ] = DEFAULT_MODEL,
+    output_dir: Annotated[
+        Optional[Path],
+        typer.Option(
+            "--output-dir",
+            "-o",
+            help="Where to write <name>.proof.json. Defaults to each PDF's folder.",
+        ),
+    ] = None,
+    min_confidence: Annotated[
+        float,
+        typer.Option("--min-confidence", help="Gate. A field under this confidence holds the batch."),
+    ] = 0.8,
+    cassette: Annotated[
+        Optional[Path],
+        typer.Option(
+            "--cassette",
+            help="Mock cassette for every PDF. Defaults to cassette.json beside each PDF.",
+        ),
+    ] = None,
+    report: Annotated[
+        Optional[Path],
+        typer.Option("--report", help="Also write a JSON summary of the batch."),
+    ] = None,
+) -> None:
+    """Extract a folder of PDFs and exit 0 only when every file clears the gate.
+
+    Each PDF is written as ``<stem>.proof.json``. Exit 1 means a file still needs
+    review (low confidence, an unverified quote, or schema errors). Exit 2 means
+    a PDF could not be read. The other files are still written.
+    """
+    try:
+        chosen = _schema_for_extract(schema, pack)
+        batch = run_batch(
+            directory,
+            chosen,
+            model=model,
+            min_confidence=min_confidence,
+            output_dir=output_dir,
+            cassette=cassette,
+            pack=pack.strip() if pack is not None else None,
+        )
+        if report is not None:
+            if not report.parent.exists():
+                raise ProofJsonError(f"Output directory not found: {report.parent}")
+            report.write_text(json.dumps(batch.to_dict(), indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    except ProofJsonError as exc:
+        _fail(exc)
+    typer.echo(render_batch(batch), nl=False)
+    raise typer.Exit(code=batch.exit_code)
 
 
 @app.command("review")
